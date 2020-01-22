@@ -7,4 +7,4 @@ FROM alpine:latest
 EXPOSE 8080
 RUN apk --no-cache add ca-certificates
 COPY --from=0 /go/src/github.com/traveloka/http-forwarder/app /app
-CMD ["/app"]  
+CMD ["/app"]
