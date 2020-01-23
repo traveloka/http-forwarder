@@ -10,6 +10,11 @@ import (
 var client *http.Client
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/healthz" {
+		fmt.Fprint(w, "OK")
+		return
+	}
+
 	url := "https://" + r.Host + r.RequestURI
 	fmt.Printf("Request: %s\n", url)
 
