@@ -36,9 +36,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	client = &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		},
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
 	}
-	client = &http.Client{Transport: tr}
 	panic(http.ListenAndServe(":8080", http.HandlerFunc(handler)))
 }
